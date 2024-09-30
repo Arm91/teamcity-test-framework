@@ -8,8 +8,8 @@
     "forceConsistentCasingInFileNames": true
   },
   "include": [
-    "tests/**/*.ts", // All test files
-    "playwright.config.ts" // Playwright config file
+    "tests/**/*.ts",
+    "playwright.config.ts"
   ],
   "exclude": ["node_modules"]
 }

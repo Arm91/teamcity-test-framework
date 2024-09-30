@@ -7,7 +7,6 @@ import prettierConfig from 'eslint-config-prettier';
 export default [
   {
     files: ['**/*.ts'], // Apply to all TypeScript files
-    ignores: ['tests-examples/**/*.ts'],
     languageOptions: {
       parser: typescriptParser,
       parserOptions: {
