@@ -5,11 +5,15 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "types": ["@faker-js/faker", "node"],
   },
   "include": [
     "tests/**/*.ts",
-    "playwright.config.ts"
+    "playwright.config.ts",
+    "utils/**/*.ts",
+    "api-calls/**/*.ts",
+    "payloads/**/*.ts"
   ],
   "exclude": ["node_modules"]
 }
