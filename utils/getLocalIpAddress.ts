@@ -13,3 +13,5 @@ export const getIPAddress = (): Promise<string> => {
     });
   });
 };
+
+export const getPort = () => 8111;

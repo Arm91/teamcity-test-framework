@@ -1,6 +1,6 @@
 import { test, Page, expect } from '@playwright/test';
-import { createProject, deleteProject } from '../api-calls/projectsEndpoint';
-import { generateProjectData } from '../utils/generateProjectData';
+import { createProject, deleteProject } from '../../api-calls/projectsEndpoint';
+import { generateProjectData } from '../../utils/generateProjectData';
 
 test.describe('test', { tag: '@regression' }, () => {
   test(

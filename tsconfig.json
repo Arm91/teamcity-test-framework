@@ -13,7 +13,8 @@
     "playwright.config.ts",
     "utils/**/*.ts",
     "api-calls/**/*.ts",
-    "payloads/**/*.ts"
+    "payloads/**/*.ts",
+    "pages/**/*.ts"
   ],
   "exclude": ["node_modules"]
 }
