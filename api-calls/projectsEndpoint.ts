@@ -1,5 +1,6 @@
 import { Page } from '@playwright/test';
 import { getIPAddress } from '../utils/getLocalIpAddress';
+import { parseResponse } from '../utils/parseResponse';
 import { headers } from '../payloads/headers';
 import {
   locatorAcceptableValues,
@@ -26,27 +27,28 @@ export async function createProject(
     }
   );
 
-  const contentType = response.headers()['content-type'] || '';
-  // Check if response content-type is JSON before parsing
-  let jsonResponse;
-  if (contentType.includes('application/json')) {
-    jsonResponse = await response.json();
-  } else {
-    jsonResponse = await response.text();
-  }
+  const jsonResponse = await parseResponse(response);
+  return {
+    response,
+    jsonResponse,
+  };
+}
 
-  // For easier debugging
-  // if (response.status() === 200) {
-  //   console.log('Project Details:', jsonResponse);
-  // } else {
-  //   console.log(
-  //     'Failed to retrieve project details. Status:',
-  //     response.status(),
-  //     'Response:',
-  //     jsonResponse
-  //   );
-  // }
+export async function readProject(
+  { page }: { page: Page },
+  searchType: string,
+  id: string
+) {
+  const ipAddress = await getIPAddress();
+  const requestHeaders = await headers(page);
+  const response = await page.request.get(
+    `http://${ipAddress}:8111/app/rest/projects/${searchType}:${id}`,
+    {
+      headers: requestHeaders,
+    }
+  );
 
+  const jsonResponse = await parseResponse(response);
   return {
     response,
     jsonResponse,
@@ -63,18 +65,7 @@ export async function deleteProject({ page }: { page: Page }, id: string) {
     }
   );
 
-  const contentType = response.headers()['content-type'] || '';
-  let jsonResponse;
-  if (
-    contentType.includes('application/json') &&
-    (await response.body()).length > 0
-  ) {
-    jsonResponse = await response.json();
-  } else if ((await response.body()).length > 0) {
-    jsonResponse = await response.text();
-  } else {
-    jsonResponse = null;
-  }
+  const jsonResponse = await parseResponse(response);
   return {
     response,
     jsonResponse,
